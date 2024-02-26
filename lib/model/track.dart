@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_demo/model/track_controller.dart';
 import 'package:provider_demo/utils/unique_object.dart';
-
+import 'clip.dart';
 class Track extends ChangeNotifier with UniqueObject {
   String _name = "";
   get name=>_name;
@@ -18,9 +18,9 @@ class Track extends ChangeNotifier with UniqueObject {
   }
 
   final List<Clip> _clips=[];
-  get clips=>_clips;
+  List<Clip> get clips=>_clips;
 
-  insterClip(Clip clip){
+  insertClip(Clip clip){
     _clips.add(clip);
     notifyListeners();
   }

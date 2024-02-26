@@ -11,16 +11,16 @@ class Clip extends ChangeNotifier with UniqueObject{
     _name = name;
     notifyListeners();
   }
-  int _start = 0;
+  double _start = 0;
   get start=>_start;
-  setStart(int start){
+  setStart(double start){
     _start = start;
     notifyListeners();
   }
 
-  int _length = 0;
+  double _length = 0;
   get length=>_length;
-  setLength(int length){
+  setLength(double length){
     _length = length;
     notifyListeners();
   }

@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -33,15 +34,36 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Expanded(child: Consumer<AppModel>(
-              builder: (context, appModel, child) {
-                return Column(
-                  children: appModel.tracks.map((e){
-                    return TrackView(track: e,);
-                  }).toList(),
+            Expanded(child: LayoutBuilder(
+              builder: (context,constraints) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 300,
+                        child: Consumer<AppModel>(
+                          builder: (context, appModel, child) {
+                            return SingleChildScrollView(
+                              child: Column(
+                                children: appModel.tracks.map((e){
+                                return TrackView(track: e,);
+                              }).toList(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: constraints.maxHeight-300>0?constraints.maxHeight-300:200,
+                        width: constraints.maxWidth,
+                        decoration: const BoxDecoration(
+                          border: Border(top: BorderSide(color: Colors.black,width: 2))
+                        ),
+                      )
+                    ],
+                  ),
                 );
-              },
-              
+              }
             ))
           ],
         ),

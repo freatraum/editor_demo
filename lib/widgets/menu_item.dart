@@ -12,14 +12,11 @@ class _MenuItemState extends State<MenuItem> {
   bool onHover = false;
 
   @override
-  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         widget.click?.call();
-
       },
-      
       onHover: (value) {
         setState(() {
           onHover=value;
@@ -27,7 +24,8 @@ class _MenuItemState extends State<MenuItem> {
       },
       child: Container(
         height: 20,
-        width: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        // width: 40,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: onHover?Colors.grey[400]:Colors.grey
