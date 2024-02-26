@@ -26,7 +26,7 @@ class AppModel extends ChangeNotifier {
   }
 
   List<Track> _tracks =[];
-  get tracks=>_tracks;
+  List<Track> get  tracks=>_tracks;
 
   int _selectedClipId = -1;
   get selectedClipId=>_selectedClipId;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/pages/home_page.dart';
 
 void main() {
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider<AppModel>(create: (_)=>AppModel())],
+      providers: [
+        ChangeNotifierProvider<AppModel>(create: (_)=>AppModel()),
+        ChangeNotifierProvider<Track>(create: (_)=>Track())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
