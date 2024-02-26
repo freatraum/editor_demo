@@ -15,6 +15,7 @@ class TrackView extends StatefulWidget {
 class _TrackViewState extends State<TrackView> {
   @override
   Widget build(BuildContext context) {
+  AppModel appModel = Provider.of<AppModel>(context);
 
     return Container(
       height: 50,
