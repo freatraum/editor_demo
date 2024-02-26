@@ -4,7 +4,7 @@ import 'package:provider_demo/utils/unique_object.dart';
 
 enum ClipType {audio,singing,generic}
 
-class Clip extends ChangeNotifier with UniqueObject{
+class Clip with ChangeNotifier , UniqueObject{
   String _name = "";
   get name =>_name;
   setName(String name){

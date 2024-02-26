@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_demo/model/track_controller.dart';
 import 'package:provider_demo/utils/unique_object.dart';
 import 'clip.dart';
-class Track extends ChangeNotifier with UniqueObject {
+class Track with ChangeNotifier, UniqueObject {
   String _name = "";
   get name=>_name;
   setName(String name){

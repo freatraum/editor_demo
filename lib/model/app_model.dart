@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_demo/model/track.dart';
 
-class AppModel extends ChangeNotifier {
+class AppModel with ChangeNotifier {
   AppModel(){
     newProject();
   }

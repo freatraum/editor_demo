@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_demo/utils/unique_object.dart';
 
-class Note extends ChangeNotifier with UniqueObject {
+class Note with ChangeNotifier, UniqueObject {
   Note({int? start,int?length,String?lyric}){
     _start = start??0;
 
