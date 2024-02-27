@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
-        ChangeNotifierProvider<Clip>(create: (_) => Clip())
-        // ChangeNotifierProxyProvider<Track,AppModel>(create: (_)=>AppModel(),
+        ChangeNotifierProvider<Clip>(create: (_) => Clip()),
+        // ChangeNotifierProxyProvider<AppModel,AppModel>(create: (_)=>AppModel(),
         //   update: (context, value, previous) => AppModel(),
         // )
         // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)

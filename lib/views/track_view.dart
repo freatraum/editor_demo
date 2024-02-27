@@ -17,6 +17,7 @@ class _TrackViewState extends State<TrackView> {
   Widget build(BuildContext context) {
     // AppModel appModel = Provider.of<AppModel>(context);
     AppModel appModel = context.watch<AppModel>();
+    // final clips = Provider.of<Clip>(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -53,25 +54,22 @@ class _TrackViewState extends State<TrackView> {
                   }
                 },
                 onPanDown: (details) {
-                  Clip clip = Clip();
+                  SingingClip singingClip = SingingClip();
                   appModel
                     ..setSelectedTrackIndex(widget.track.id)
-                    ..setSelectedClipId(clip.id);
-                  clip.setStart(details.localPosition.dx);
-                  clip.setClipStart(details.localPosition.dx);
-                  clip.setName("New Clip");
-                  clip.setLength(120);
-                  widget.track.insertClip(clip);
+                    ..setSelectedClipId(singingClip.id);
+                  singingClip.setStart(details.localPosition.dx);
+                  singingClip.setClipStart(details.localPosition.dx);
+                  singingClip.setName("New Clip");
+                  singingClip.setLength(120);
+                  widget.track.insertClip(singingClip);
                 },
                 child: Container(
                   color: Colors.grey,
                 ),
               ),
               Stack(
-                children: appModel
-                    .findTrackById(widget.track.id)
-                    .clips
-                    .list
+                children: widget.track.clips.list
                     .map((e) => Positioned(
                         left: e.start,
                         top: 4,

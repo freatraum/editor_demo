@@ -47,12 +47,12 @@ class Clip with ChangeNotifier, BaseItem {
     notifyListeners();
   }
 
-  get type => ClipType.generic;
+  ClipType get type => ClipType.generic;
 }
 
 class AudioClip extends Clip {
   @override
-  get type => ClipType.audio;
+  ClipType get type => ClipType.audio;
 
   String _path = "";
   get path => _path;
@@ -63,7 +63,10 @@ class AudioClip extends Clip {
 
 class SingingClip extends Clip {
   final List<Note> _notes = [];
-  get notes => _notes;
+
+  @override
+  ClipType get type => ClipType.singing;
+  List<Note> get notes => _notes;
   insertNote(Note note) {
     _notes.add(note);
     notifyListeners();

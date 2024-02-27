@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/clip.dart';
+import 'package:provider_demo/views/note_stage_view.dart';
 import 'package:provider_demo/views/track_view.dart';
 import 'package:provider_demo/widgets/menu_widget.dart';
 
@@ -12,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -29,42 +29,85 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const MenuWidget(),
-                  Consumer<AppModel>(builder: (context, appModel, child) => Text(appModel.projectName),),
+                  Consumer<AppModel>(
+                    builder: (context, appModel, child) =>
+                        Text(appModel.projectName),
+                  ),
                   Container()
                 ],
               ),
             ),
-            Expanded(child: LayoutBuilder(
-              builder: (context,constraints) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 300,
-                        child: Consumer<AppModel>(
-                          builder: (context, appModel, child) {
-                            return SingleChildScrollView(
-                              child: Column(
-                                children: appModel.tracks.map((e){
-                                return TrackView(track: e,);
+            Expanded(child: LayoutBuilder(builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 300,
+                      child: Consumer<AppModel>(
+                        builder: (context, appModel, child) {
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: appModel.tracks.map((e) {
+                                return TrackView(
+                                  track: e,
+                                );
                               }).toList(),
-                              ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                      Container(
-                        height: constraints.maxHeight-300>0?constraints.maxHeight-300:200,
-                        width: constraints.maxWidth,
-                        decoration: const BoxDecoration(
-                          border: Border(top: BorderSide(color: Colors.black,width: 2))
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }
-            ))
+                    ),
+                    Container(
+                      height: constraints.maxHeight - 300 > 0
+                          ? constraints.maxHeight - 300
+                          : 200,
+                      width: constraints.maxWidth,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              top: BorderSide(color: Colors.black, width: 2))),
+                      child: Consumer<AppModel>(
+                        builder: (context, value, child) {
+                          return (value.selectedTrackIndex == -1 ||
+                                  value.selectedClipId == -1)
+                              ? Container()
+                              : SizedBox(
+                                  height: constraints.maxHeight - 300 > 0
+                                      ? constraints.maxHeight - 300
+                                      : 200,
+                                  width: constraints.maxWidth,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                          child: Text(
+                                            value
+                                                .findTrackById(
+                                                    value.selectedTrackIndex)
+                                                .findClipById(
+                                                    value.selectedClipId)
+                                                .name,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        NoteStageView(
+                                          height: constraints.maxHeight,
+                                          width: constraints.maxWidth,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }))
           ],
         ),
       ),
