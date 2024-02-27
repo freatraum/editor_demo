@@ -34,6 +34,11 @@ class Track with ChangeNotifier, UniqueObject {
     notifyListeners();
   }
 
+  insertClipAt(Clip clip, int index) {
+    _clips.insert(clip, index);
+    notifyListeners();
+  }
+
   insertClipQuietly(Clip clip) {
     _clips.add(clip);
   }
@@ -52,7 +57,9 @@ class Track with ChangeNotifier, UniqueObject {
   }
 
   notifyClipChanged(Clip clip) {
-    // _clips.firstWhere((element) => element.id == clip.id);
+    var index = _clips.indexOf(clip);
+    removeClip(clip);
+    insertClipAt(clip, index);
     notifyListeners();
   }
 }

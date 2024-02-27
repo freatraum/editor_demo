@@ -17,27 +17,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppModel>(create: (_)=>AppModel()),
-        ChangeNotifierProvider<Track>(create: (_)=>Track()),
-        ChangeNotifierProvider<Clip>(create: (_)=>Clip())
-        // ChangeNotifierProxyProvider<Track,AppModel>(create: (_)=>AppModel(), 
+        ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
+        ChangeNotifierProvider<Track>(create: (_) => Track()),
+        ChangeNotifierProvider<Clip>(create: (_) => Clip())
+        // ChangeNotifierProxyProvider<Track,AppModel>(create: (_)=>AppModel(),
         //   update: (context, value, previous) => AppModel(),
         // )
         // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
-          
         ),
-        
         debugShowCheckedModeBanner: false,
         home: const HomePage(),
       ),
     );
   }
 }
-

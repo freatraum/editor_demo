@@ -11,6 +11,11 @@ class BaseList<T extends BaseItem> with UniqueObject, ChangeNotifier {
     notifyListeners();
   }
 
+  insert(T item, int index) {
+    _list.insert(index, item);
+    notifyListeners();
+  }
+
   remove(T item) {
     _list.remove(item);
     notifyListeners();

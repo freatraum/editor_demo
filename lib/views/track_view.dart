@@ -20,7 +20,12 @@ class _TrackViewState extends State<TrackView> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-          color: Colors.black45, border: Border.all(color: Colors.lightBlue)),
+        color: Colors.black45,
+        border: Border.all(
+            color: appModel.selectedTrackIndex == widget.track.id
+                ? Colors.red
+                : Colors.lightBlue),
+      ),
       width: double.infinity,
       child: Row(
         children: [
@@ -68,7 +73,16 @@ class _TrackViewState extends State<TrackView> {
                     .clips
                     .list
                     .map((e) => Positioned(
-                        left: e.start, top: 4, child: ClipView(clip: e)))
+                        left: e.start,
+                        top: 4,
+                        child: ClipView(
+                          clip: e,
+                          dragFn: (start) {
+                            e.setStart(start);
+                            setState(() {});
+                          },
+                          selected: appModel.selectedClipId == e.id,
+                        )))
                     .toList(),
               )
             ],
