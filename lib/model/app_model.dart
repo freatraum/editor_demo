@@ -42,11 +42,15 @@ class AppModel with ChangeNotifier {
   }
 
   addTrack(Track track){
+    track.setIndex(_tracks.length);
     _tracks.add(track);
     notifyListeners();
 
   }
 
+  Track findTrackById(int id){
+    return _tracks.firstWhere((element) => element.id==id);
+  }
   removeTrack(Track track){
     _tracks.remove(track);
     notifyListeners();

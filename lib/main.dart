@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/pages/home_page.dart';
 
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AppModel>(create: (_)=>AppModel()),
         ChangeNotifierProvider<Track>(create: (_)=>Track()),
-        ChangeNotifierProxyProvider<Track,AppModel>(create: (_)=>AppModel(), 
-          update: (context, value, previous) => AppModel(),
-        )
+        ChangeNotifierProvider<Clip>(create: (_)=>Clip())
+        // ChangeNotifierProxyProvider<Track,AppModel>(create: (_)=>AppModel(), 
+        //   update: (context, value, previous) => AppModel(),
+        // )
         // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)
       ],
       child: MaterialApp(

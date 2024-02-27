@@ -30,6 +30,7 @@ class _MenuWidgetState extends State<MenuWidget> {
             click: () {
               Track track = Track();
               track.setName("New Track");
+              
               appModel.addTrack(track);
             },
           );

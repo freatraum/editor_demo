@@ -10,6 +10,13 @@ class Track with ChangeNotifier, UniqueObject {
     notifyListeners();
   }
 
+  int _index = 0;
+  int get index=>_index;
+  setIndex(int index){
+    _index=index;
+    notifyListeners();
+  }
+
   TrackController _controller = TrackController();
   get controller =>_controller;
   setController(TrackController controller){
@@ -28,6 +35,10 @@ class Track with ChangeNotifier, UniqueObject {
     _clips.add(clip);
   }
 
+  Clip findClipById(int id){
+    return _clips.firstWhere((element) => element.id==id);
+  }
+
   removeClip(Clip clip){
     _clips.remove(clip);
     notifyListeners();
@@ -37,6 +48,8 @@ class Track with ChangeNotifier, UniqueObject {
     _clips.remove(clip);
   }
 
-  
+  update(){
+    notifyListeners();
+  }
 
 }

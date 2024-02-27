@@ -13,10 +13,10 @@ class TrackView extends StatefulWidget {
 }
 
 class _TrackViewState extends State<TrackView> {
+
   @override
   Widget build(BuildContext context) {
-  AppModel appModel = Provider.of<AppModel>(context);
-
+    AppModel appModel = Provider.of<AppModel>(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -35,24 +35,38 @@ class _TrackViewState extends State<TrackView> {
             ),
             child: Text(widget.track.name,overflow: TextOverflow.ellipsis,),
           ),
-          Expanded(child: GestureDetector(
-            onPanDown: (details) {
-              
-              Clip clip = Clip();
-              clip.setStart(details.localPosition.dx);
-              clip.setName("New Clip");
-              widget.track.insertClip(clip);
-              // appModel.tracks.first.insterClip(clip);
-            },
-            child: Container(
-              color: Colors.grey,
-              child: Stack(
-                children: widget.track.clips.map((e) => Positioned(left: e.start,child: ClipView(clip: e))).toList(),
-              ),
-            ),
+          Expanded(child: Stack(
+            children: [
+              GestureDetector(
+                onPanUpdate: (details) {
+                  var clip = widget.track.findClipById(appModel.selectedClipId);
+                  var deltaX = details.localPosition.dx-clip.start;
+                  if(deltaX>120){
+                    clip.setLength(deltaX);
+                  }
+                },
+                onPanDown: (details) {
+                  Clip clip = Clip();
+                  appModel..setSelectedTrackIndex(widget.track.id)..setSelectedClipId(clip.id);
+                  clip.setStart(details.localPosition.dx);
+                  clip.setName("New Clip");
+                  clip.setLength(120);
+                  widget.track.insertClip(clip);
+      
+                },
+                child: Container(
+                  color: Colors.grey,
+                  ),
+                ),
+                Stack(
+                children: appModel.findTrackById(widget.track.id).clips.map((e) => Positioned(left: e.start,top: 4,child: ClipView(clip: e))).toList(),
+              )
+              ],
           ))
         ],
       ),
     );
   }
 }
+
+
