@@ -24,7 +24,9 @@ class _NoteStageViewState extends State<NoteStageView> {
                 .findClipById(value.selectedClipId) as SingingClip;
             return GestureDetector(
               onPanDown: (details) {
-                Note note = Note(start: details.localPosition.dx);
+                Note note = Note(
+                    start: details.localPosition.dx,
+                    y: details.localPosition.dy);
                 singingClip.insertNote(note);
                 setState(() {});
               },
@@ -54,11 +56,11 @@ class _NoteStageViewState extends State<NoteStageView> {
                     ? (clip as SingingClip).notes.map((e) {
                         return Positioned(
                           left: e.start,
-                          top: 20,
+                          top: e.y,
                           child: Container(
                             height: 20,
-                            width: 20,
-                            color: Colors.black,
+                            width: e.length,
+                            color: Colors.lightBlue,
                             child: Text(e.lyric),
                           ),
                         );

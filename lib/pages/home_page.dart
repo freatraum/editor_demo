@@ -67,10 +67,9 @@ class _HomePageState extends State<HomePage> {
                               top: BorderSide(color: Colors.black, width: 2))),
                       child: Consumer<AppModel>(
                         builder: (context, value, child) {
-                          return (value.selectedTrackIndex == -1 ||
-                                  value.selectedClipId == -1)
-                              ? Container()
-                              : SizedBox(
+                          return (value.selectedTrackIndex != -1 &&
+                                  value.selectedClipId != -1)
+                              ? SizedBox(
                                   height: constraints.maxHeight - 300 > 0
                                       ? constraints.maxHeight - 300
                                       : 200,
@@ -100,7 +99,8 @@ class _HomePageState extends State<HomePage> {
                                       ],
                                     ),
                                   ),
-                                );
+                                )
+                              : Container();
                         },
                       ),
                     )
