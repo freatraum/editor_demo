@@ -6,23 +6,21 @@ import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/views/clip_view.dart';
 
 class TrackView extends StatefulWidget {
-  const TrackView({required this.track ,super.key});
+  const TrackView({required this.track, super.key});
   final Track track;
   @override
   State<TrackView> createState() => _TrackViewState();
 }
 
 class _TrackViewState extends State<TrackView> {
-
   @override
   Widget build(BuildContext context) {
-    AppModel appModel = Provider.of<AppModel>(context);
+    // AppModel appModel = Provider.of<AppModel>(context);
+    AppModel appModel = context.watch<AppModel>();
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.black45,
-        border: Border.all(color: Colors.lightBlue)
-      ),
+          color: Colors.black45, border: Border.all(color: Colors.lightBlue)),
       width: double.infinity,
       child: Row(
         children: [
@@ -31,42 +29,52 @@ class _TrackViewState extends State<TrackView> {
             height: double.infinity,
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-              border: Border(right: BorderSide(color: Colors.lightBlue))
+                border: Border(right: BorderSide(color: Colors.lightBlue))),
+            child: Text(
+              widget.track.name,
+              overflow: TextOverflow.ellipsis,
             ),
-            child: Text(widget.track.name,overflow: TextOverflow.ellipsis,),
           ),
-          Expanded(child: Stack(
+          Expanded(
+              child: Stack(
             children: [
               GestureDetector(
                 onPanUpdate: (details) {
                   var clip = widget.track.findClipById(appModel.selectedClipId);
-                  var deltaX = details.localPosition.dx-clip.start;
-                  if(deltaX>120){
+                  var deltaX = details.localPosition.dx - clip.start;
+                  if (deltaX > 120) {
                     clip.setLength(deltaX);
+                    setState(() {});
                   }
                 },
                 onPanDown: (details) {
                   Clip clip = Clip();
-                  appModel..setSelectedTrackIndex(widget.track.id)..setSelectedClipId(clip.id);
+                  appModel
+                    ..setSelectedTrackIndex(widget.track.id)
+                    ..setSelectedClipId(clip.id);
                   clip.setStart(details.localPosition.dx);
+                  clip.setClipStart(details.localPosition.dx);
                   clip.setName("New Clip");
                   clip.setLength(120);
                   widget.track.insertClip(clip);
-      
                 },
                 child: Container(
                   color: Colors.grey,
-                  ),
                 ),
-                Stack(
-                children: appModel.findTrackById(widget.track.id).clips.map((e) => Positioned(left: e.start,top: 4,child: ClipView(clip: e))).toList(),
+              ),
+              Stack(
+                children: appModel
+                    .findTrackById(widget.track.id)
+                    .clips
+                    .list
+                    .map((e) => Positioned(
+                        left: e.start, top: 4, child: ClipView(clip: e)))
+                    .toList(),
               )
-              ],
+            ],
           ))
         ],
       ),
     );
   }
 }
-
-
