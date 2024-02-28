@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/audio_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/pages/home_page.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
         ChangeNotifierProvider<Clip>(create: (_) => Clip()),
+        FutureProvider<AudioModel>(
+            create: (context) {}, initialData: AudioModel())
         // ChangeNotifierProxyProvider<AppModel,AppModel>(create: (_)=>AppModel(),
         //   update: (context, value, previous) => AppModel(),
         // )

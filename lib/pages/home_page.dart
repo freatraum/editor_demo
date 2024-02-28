@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/audio_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/views/note_stage_view.dart';
 import 'package:provider_demo/views/track_view.dart';
@@ -65,10 +66,10 @@ class _HomePageState extends State<HomePage> {
                       decoration: const BoxDecoration(
                           border: Border(
                               top: BorderSide(color: Colors.black, width: 2))),
-                      child: Consumer<AppModel>(
-                        builder: (context, value, child) {
-                          return (value.selectedTrackIndex != -1 &&
-                                  value.selectedClipId != -1)
+                      child: Consumer2<AppModel, AudioModel>(
+                        builder: (context, appModel, audioModel, child) {
+                          return (appModel.selectedTrackIndex != -1 &&
+                                  appModel.selectedClipId != -1)
                               ? SizedBox(
                                   height: constraints.maxHeight - 300 > 0
                                       ? constraints.maxHeight - 300
@@ -79,17 +80,50 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         SizedBox(
                                           height: 20,
-                                          child: Text(
-                                            value
-                                                .findTrackById(
-                                                    value.selectedTrackIndex)
-                                                .findClipById(
-                                                    value.selectedClipId)
-                                                .name,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                appModel
+                                                    .findTrackById(appModel
+                                                        .selectedTrackIndex)
+                                                    .findClipById(
+                                                        appModel.selectedClipId)
+                                                    .name,
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                "1",
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  // await audioModel.play();
+                                                  await audioModel.play(60);
+                                                },
+                                                child: const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Text("Play"),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  // await audioModel.pause();
+                                                  await audioModel.stop(60);
+                                                },
+                                                child: const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Text("Pause"),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         NoteStageView(
