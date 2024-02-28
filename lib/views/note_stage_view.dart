@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/note.dart';
+import 'package:provider_demo/widgets/piano_bg_key.dart';
 
 class NoteStageView extends StatefulWidget {
   const NoteStageView({required this.height, required this.width, super.key});
@@ -24,6 +25,7 @@ class _NoteStageViewState extends State<NoteStageView> {
               border: Border(
             top: BorderSide(color: Colors.grey),
           )),
+          child: const PianoBgKey(),
         ),
         Stack(
           children: [
