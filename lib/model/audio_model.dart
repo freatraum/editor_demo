@@ -1,11 +1,10 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_demo/note_audio.dart';
+import 'package:kplayer/kplayer.dart';
 
 class AudioModel with ChangeNotifier {
   final Map<int, String> _audioSources = {};
-  final Map<int, AudioPlayer> _audioPlayers = {};
-  // bool _playing = false;
+  final Map<int, PlayerController> _audioPlayers = {};
 
   AudioModel() {
     for (var i = 0; i < notesAudioResource.length; i++) {
@@ -17,28 +16,17 @@ class AudioModel with ChangeNotifier {
       return;
     }
     if (_audioPlayers.containsKey(index) &&
-        _audioPlayers[index]!.state == PlayerState.playing) {
+        _audioPlayers[index]!.status == PlayerStatus.playing) {
       return;
     }
-
-    final AudioPlayer player = AudioPlayer();
-    final AssetSource source = AssetSource(_audioSources[index]!);
-    player.play(source);
-    player.onPlayerComplete.listen((event) {
-      _audioPlayers.remove(index);
-      notifyListeners();
+    final PlayerController player = Player.asset(plist[index]);
+    player.play();
+    player.streams.status.listen((event) {
+      if (event == PlayerStatus.ended) {
+        _audioPlayers.remove(index);
+        notifyListeners();
+      }
     });
-    // final AudioSource source = _audioSources[index]!;
-    // await player.setAudioSource(source);
-    // player.play();
-    print(player);
-    // player.playbackEventStream.listen((event) {
-    //   if (event.processingState == ProcessingState.completed) {
-    //     _audioPlayers.remove(index);
-    //     notifyListeners();
-    //   }
-    // });
-
     notifyListeners();
   }
 
@@ -46,14 +34,14 @@ class AudioModel with ChangeNotifier {
     if (!_audioPlayers.containsKey(index)) {
       return;
     }
-    final AudioPlayer player = _audioPlayers[index]!;
+    final PlayerController player = _audioPlayers[index]!;
     await player.stop();
     _audioPlayers.remove(index);
     notifyListeners();
   }
 
   Future<void> stopAll() async {
-    for (final AudioPlayer player in _audioPlayers.values) {
+    for (final PlayerController player in _audioPlayers.values) {
       await player.stop();
     }
     _audioPlayers.clear();
@@ -61,7 +49,7 @@ class AudioModel with ChangeNotifier {
   }
 
   void disposed() {
-    for (final AudioPlayer player in _audioPlayers.values) {
+    for (final PlayerController player in _audioPlayers.values) {
       player.dispose();
     }
     _audioPlayers.clear();
