@@ -8,7 +8,7 @@ class AudioModel with ChangeNotifier {
 
   AudioModel() {
     for (var i = 0; i < notesAudioResource.length; i++) {
-      _audioSources[i] = notesAudioResource[i];
+      _audioSources[i + 40] = notesAudioResource[i];
     }
   }
   Future<void> play(int index) async {

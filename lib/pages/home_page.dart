@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
                       decoration: const BoxDecoration(
                           border: Border(
                               top: BorderSide(color: Colors.black, width: 2))),
-                      child: Consumer2<AppModel, AudioModel>(
-                        builder: (context, appModel, audioModel, child) {
+                      child: Consumer<AppModel>(
+                        builder: (context, appModel, child) {
                           return (appModel.selectedTrackIndex != -1 &&
                                   appModel.selectedClipId != -1)
                               ? SizedBox(
@@ -75,10 +75,11 @@ class _HomePageState extends State<HomePage> {
                                       ? constraints.maxHeight - 300
                                       : 200,
                                   width: constraints.maxWidth,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
+                                  child: Column(
+                                    children: [
+                                      Consumer<AudioModel>(builder:
+                                          (context, audioModel, child) {
+                                        return SizedBox(
                                           height: 20,
                                           child: Row(
                                             children: [
@@ -94,9 +95,9 @@ class _HomePageState extends State<HomePage> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black),
                                               ),
-                                              Text(
+                                              const Text(
                                                 "1",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black),
@@ -125,13 +126,19 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        NoteStageView(
+                                        );
+                                      }),
+                                      SizedBox(
+                                        height: constraints.maxHeight - 322 > 0
+                                            ? constraints.maxHeight - 322
+                                            : 178,
+                                        width: constraints.maxWidth,
+                                        child: NoteStageView(
                                           height: constraints.maxHeight,
                                           width: constraints.maxWidth,
-                                        )
-                                      ],
-                                    ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               : Container();

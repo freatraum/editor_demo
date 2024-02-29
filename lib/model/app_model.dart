@@ -79,6 +79,8 @@ class AppModel with ChangeNotifier {
   reset() {
     _tempo = 120;
     _tracks = [];
+    _selectedTrackIndex = -1;
+    _selectedClipId = -1;
     notifyListeners();
   }
 }
