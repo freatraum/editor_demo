@@ -70,77 +70,9 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, appModel, child) {
                           return (appModel.selectedTrackIndex != -1 &&
                                   appModel.selectedClipId != -1)
-                              ? SizedBox(
-                                  height: constraints.maxHeight - 300 > 0
-                                      ? constraints.maxHeight - 300
-                                      : 200,
-                                  width: constraints.maxWidth,
-                                  child: Column(
-                                    children: [
-                                      Consumer<AudioModel>(builder:
-                                          (context, audioModel, child) {
-                                        return SizedBox(
-                                          height: 20,
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                appModel
-                                                    .findTrackById(appModel
-                                                        .selectedTrackIndex)
-                                                    .findClipById(
-                                                        appModel.selectedClipId)
-                                                    .name,
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              ),
-                                              const Text(
-                                                "1",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  // await audioModel.play();
-                                                  await audioModel.play(60);
-                                                },
-                                                child: const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                                  child: Text("Play"),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  // await audioModel.pause();
-                                                  await audioModel.stop(60);
-                                                },
-                                                child: const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                                  child: Text("Pause"),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }),
-                                      SizedBox(
-                                        height: constraints.maxHeight - 322 > 0
-                                            ? constraints.maxHeight - 322
-                                            : 178,
-                                        width: constraints.maxWidth,
-                                        child: NoteStageView(
-                                          height: constraints.maxHeight,
-                                          width: constraints.maxWidth,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
+                              ? NoteStageView(
+                                  height: constraints.maxHeight,
+                                  width: constraints.maxWidth)
                               : Container();
                         },
                       ),

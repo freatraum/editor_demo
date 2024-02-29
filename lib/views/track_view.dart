@@ -4,6 +4,7 @@ import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/views/clip_view.dart';
+import 'package:provider_demo/widgets/timeline_bar_widget.dart';
 
 class TrackView extends StatefulWidget {
   const TrackView({required this.track, super.key});
@@ -82,7 +83,7 @@ class _TrackViewState extends State<TrackView> {
                           selected: appModel.selectedClipId == e.id,
                         )))
                     .toList(),
-              )
+              ),
             ],
           ))
         ],

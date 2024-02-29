@@ -62,6 +62,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - asset/images/tri.png
     - asset/note100.wav
     - asset/note101.wav
     - asset/note102.wav
