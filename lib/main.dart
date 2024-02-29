@@ -25,7 +25,10 @@ class MyApp extends StatelessWidget {
         // ChangeNotifierProvider<TimelineBarModel>(
         //     create: (_) => TimelineBarModel()),
         FutureProvider<AudioModel>(
-            create: (context) {}, initialData: AudioModel()),
+            create: (context) {
+              return Future.value(AudioModel());
+            },
+            initialData: AudioModel()),
         ChangeNotifierProxyProvider<AudioModel, TimelineBarModel>(
           create: (_) => TimelineBarModel(AudioModel().play),
           update: (context, value, previous) =>
