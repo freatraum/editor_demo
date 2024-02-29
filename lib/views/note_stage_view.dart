@@ -7,6 +7,7 @@ import 'package:provider_demo/model/midi_model.dart';
 import 'package:provider_demo/model/note.dart';
 import 'package:provider_demo/model/timeline_bar.dart';
 import 'package:provider_demo/utils/color.dart';
+import 'package:provider_demo/views/note_view.dart';
 import 'package:provider_demo/widgets/note_stage_bg_widget.dart';
 import 'package:provider_demo/widgets/piano_bg_key.dart';
 import 'package:provider_demo/widgets/timeline_bar_widget.dart';
@@ -20,6 +21,26 @@ class NoteStageView extends StatefulWidget {
 }
 
 class _NoteStageViewState extends State<NoteStageView> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    scrollController.addListener(handleScroll);
+  }
+
+  handleScroll() {
+    Provider.of<AppModel>(context, listen: false)
+        .setNoteStageScrollOffset(scrollController.offset);
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(handleScroll);
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     TimelineBarModel timelineBarModel = Provider.of(context);
@@ -30,15 +51,15 @@ class _NoteStageViewState extends State<NoteStageView> {
         children: [
           Consumer2<AudioModel, AppModel>(
               builder: (context, audioModel, appModel, child) {
+            var clip = appModel
+                .findTrackById(appModel.selectedTrackIndex)
+                .findClipById(appModel.selectedClipId) as SingingClip;
             return SizedBox(
               height: 20,
               child: Row(
                 children: [
                   Text(
-                    appModel
-                        .findTrackById(appModel.selectedTrackIndex)
-                        .findClipById(appModel.selectedClipId)
-                        .name,
+                    clip.name,
                     style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -48,7 +69,7 @@ class _NoteStageViewState extends State<NoteStageView> {
                     onTap: () async {
                       // await audioModel.play();
                       // await audioModel.play(60);
-                      timelineBarModel.play();
+                      timelineBarModel.play(clip.notes);
                     },
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -77,6 +98,7 @@ class _NoteStageViewState extends State<NoteStageView> {
               children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
+                  controller: scrollController,
                   child: Row(
                     children: [
                       Container(
@@ -100,6 +122,9 @@ class _NoteStageViewState extends State<NoteStageView> {
                                   onPanUpdate: (details) {},
                                   onPanDown: (details) {
                                     Note note = Note(
+                                        noteKey: 102 -
+                                            (details.localPosition.dy / 25)
+                                                .floor(),
                                         start: details.localPosition.dx,
                                         y: (details.localPosition.dy / 25)
                                                     .floor() *
@@ -134,16 +159,7 @@ class _NoteStageViewState extends State<NoteStageView> {
                                   child: Stack(
                                     children: clip.type == ClipType.singing
                                         ? (clip as SingingClip).notes.map((e) {
-                                            return Positioned(
-                                              left: e.start,
-                                              top: e.y,
-                                              child: Container(
-                                                height: 20,
-                                                width: e.length / 8,
-                                                color: Colors.lightBlue,
-                                                child: Text(e.lyric),
-                                              ),
-                                            );
+                                            return NoteView(note: e);
                                           }).toList()
                                         : [],
                                   ),

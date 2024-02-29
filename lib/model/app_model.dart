@@ -12,6 +12,13 @@ class AppModel with ChangeNotifier {
     notifyListeners();
   }
 
+  double _noteStageScrollOffset = 0.0;
+  double get noteStageScrollOffset => _noteStageScrollOffset;
+  setNoteStageScrollOffset(double offset) {
+    _noteStageScrollOffset = offset;
+    notifyListeners();
+  }
+
   int _selectedTrackIndex = -1;
   get selectedTrackIndex => _selectedTrackIndex;
   setSelectedTrackIndex(int index) {

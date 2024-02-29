@@ -23,7 +23,7 @@ class MidiModel {
 
   static List<int> keys() {
     List<int> keys = [];
-    for (int i = 40; i <= 102; i++) {
+    for (int i = 102; i >= 40; i--) {
       keys.add(i);
     }
     return keys;

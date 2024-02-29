@@ -14,7 +14,7 @@ class NoteStageBgPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    for (var i = 0; i < midiKeys.length; i++) {
+    for (var i = midiKeys.length - 1; i >= 0; i--) {
       int key = midiKeys[i];
       String keyName = MidiModel.midiToName(key);
       bool isBlackKey = keyName.contains("#");

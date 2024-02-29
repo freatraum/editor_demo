@@ -22,13 +22,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
         ChangeNotifierProvider<Clip>(create: (_) => Clip()),
-        ChangeNotifierProvider<TimelineBarModel>(
-            create: (_) => TimelineBarModel()),
+        // ChangeNotifierProvider<TimelineBarModel>(
+        //     create: (_) => TimelineBarModel()),
         FutureProvider<AudioModel>(
-            create: (context) {}, initialData: AudioModel())
-        // ChangeNotifierProxyProvider<AppModel,AppModel>(create: (_)=>AppModel(),
-        //   update: (context, value, previous) => AppModel(),
-        // )
+            create: (context) {}, initialData: AudioModel()),
+        ChangeNotifierProxyProvider<AudioModel, TimelineBarModel>(
+          create: (_) => TimelineBarModel(AudioModel().play),
+          update: (context, value, previous) =>
+              TimelineBarModel(AudioModel().play),
+        )
         // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)
       ],
       child: MaterialApp(

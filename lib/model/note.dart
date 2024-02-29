@@ -2,11 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:provider_demo/utils/unique_object.dart';
 
 class Note with ChangeNotifier, UniqueObject {
-  Note({double? start, double? length, String? lyric, double? y}) {
+  Note({
+    required int noteKey,
+    double? start,
+    double? length,
+    String? lyric,
+    double? y,
+  }) {
     _start = start ?? 0;
-    _length = length ?? 480;
+    _noteStart = start ?? 0;
+    _length = length ?? 50;
     _lyric = lyric ?? '喵';
     _y = y ?? 0;
+    _noteKey = noteKey;
+  }
+  int _noteKey = 60;
+  int get noteKey => _noteKey;
+  set noteKey(int noteKey) {
+    _noteKey = noteKey;
+    notifyListeners();
+  }
+
+  double _noteStart = 0;
+  double get noteStart => _noteStart;
+  set noteStart(double value) {
+    _noteStart = value;
+    notifyListeners();
   }
 
   double _start = 0;
