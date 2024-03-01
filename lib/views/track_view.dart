@@ -48,7 +48,7 @@ class _TrackViewState extends State<TrackView> {
                   var deltaX = details.localPosition.dx - clip.start;
                   if (deltaX > 120) {
                     clip.setLength(deltaX);
-                    // setState(() {});
+                    setState(() {});
                   }
                 },
                 onPanDown: (details) {

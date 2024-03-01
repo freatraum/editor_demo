@@ -4,14 +4,9 @@ import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/widgets/menu_item.dart';
 
-class MenuWidget extends StatefulWidget {
+class MenuWidget extends StatelessWidget {
   const MenuWidget({super.key});
 
-  @override
-  State<MenuWidget> createState() => _MenuWidgetState();
-}
-
-class _MenuWidgetState extends State<MenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
