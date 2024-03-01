@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
-import 'package:provider_demo/model/audio_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/midi_model.dart';
 import 'package:provider_demo/model/note.dart';
 import 'package:provider_demo/model/timeline_bar.dart';
-import 'package:provider_demo/utils/color.dart';
 import 'package:provider_demo/views/note_view.dart';
 import 'package:provider_demo/widgets/note_stage_bg_widget.dart';
 import 'package:provider_demo/widgets/piano_bg_key.dart';
