@@ -4,7 +4,6 @@ import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/views/clip_view.dart';
-import 'package:provider_demo/widgets/timeline_bar_widget.dart';
 
 class TrackView extends StatefulWidget {
   const TrackView({required this.track, super.key});
@@ -16,9 +15,7 @@ class TrackView extends StatefulWidget {
 class _TrackViewState extends State<TrackView> {
   @override
   Widget build(BuildContext context) {
-    // AppModel appModel = Provider.of<AppModel>(context);
     AppModel appModel = context.watch<AppModel>();
-    // final clips = Provider.of<Clip>(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -51,7 +48,7 @@ class _TrackViewState extends State<TrackView> {
                   var deltaX = details.localPosition.dx - clip.start;
                   if (deltaX > 120) {
                     clip.setLength(deltaX);
-                    setState(() {});
+                    // setState(() {});
                   }
                 },
                 onPanDown: (details) {

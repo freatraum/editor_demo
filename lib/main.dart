@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/audio_model.dart';
 import 'package:provider_demo/model/clip.dart';
+import 'package:provider_demo/model/drag_action_model.dart';
 import 'package:provider_demo/model/timeline_bar.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/pages/home_page.dart';
@@ -22,8 +23,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
         ChangeNotifierProvider<Clip>(create: (_) => Clip()),
-        // ChangeNotifierProvider<TimelineBarModel>(
-        //     create: (_) => TimelineBarModel()),
+        ChangeNotifierProvider<DragActionModel>(
+          create: (_) => DragActionModel(),
+        ),
         FutureProvider<AudioModel>(
             create: (context) {
               return Future.value(AudioModel());
@@ -35,7 +37,6 @@ class MyApp extends StatelessWidget {
           update: (context, value, previous) =>
               TimelineBarModel(AudioModel().play, AudioModel().stopAll),
         )
-        // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

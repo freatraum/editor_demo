@@ -47,6 +47,14 @@ class Track with ChangeNotifier, UniqueObject {
     return _clips.findById(id);
   }
 
+  fromTrack(Track other) {
+    _name = other.name;
+    _index = other.index;
+    _controller = other.controller;
+    _clips.clear();
+    _clips.addAll(other.clips);
+  }
+
   removeClip(Clip clip) {
     _clips.remove(clip);
     notifyListeners();

@@ -5,6 +5,7 @@ import 'package:provider_demo/utils/color.dart';
 class NoteStageBgPainter extends CustomPainter {
   final double keyWidth;
   final double keyHeight;
+
   final List<int> midiKeys = MidiModel.keys();
   NoteStageBgPainter({
     required this.keyHeight,
@@ -23,11 +24,13 @@ class NoteStageBgPainter extends CustomPainter {
       } else {
         paint.color = colorDADADA;
       }
-
       canvas.drawRect(
         Rect.fromLTWH(0, i * keyHeight + 1, keyWidth, keyHeight),
         paint,
       );
+    }
+    for(var i = 0;i<keyWidth;i+=60){
+      canvas.drawLine(Offset(i.toDouble(), 0), Offset(i.toDouble(), midiKeys.length*25), paint);
     }
   }
 

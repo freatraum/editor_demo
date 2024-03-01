@@ -20,8 +20,6 @@ class _ClipViewState extends State<ClipView> {
   double dragStart = 0.0;
   @override
   Widget build(BuildContext context) {
-    // ClipModel clipModel = Provider.of<ClipModel>(context);
-
     AppModel appModel = Provider.of(context);
     return GestureDetector(
       onHorizontalDragEnd: (details) {

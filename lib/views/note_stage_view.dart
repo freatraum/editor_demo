@@ -49,8 +49,7 @@ class _NoteStageViewState extends State<NoteStageView> {
       width: widget.width,
       child: Column(
         children: [
-          Consumer2<AudioModel, AppModel>(
-              builder: (context, audioModel, appModel, child) {
+          Consumer<AppModel>(builder: (context, appModel, child) {
             var clip = appModel
                 .findTrackById(appModel.selectedTrackIndex)
                 .findClipById(appModel.selectedClipId) as SingingClip;
@@ -67,8 +66,6 @@ class _NoteStageViewState extends State<NoteStageView> {
                   ),
                   InkWell(
                     onTap: () async {
-                      // await audioModel.play();
-                      // await audioModel.play(60);
                       timelineBarModel.play(clip.notes);
                     },
                     child: const Padding(
@@ -78,8 +75,6 @@ class _NoteStageViewState extends State<NoteStageView> {
                   ),
                   InkWell(
                     onTap: () async {
-                      // await audioModel.pause();
-                      // await audioModel.stop(60);
                       timelineBarModel.stop();
                     },
                     child: const Padding(

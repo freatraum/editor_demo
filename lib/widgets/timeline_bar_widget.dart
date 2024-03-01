@@ -16,8 +16,14 @@ class _TimelineBarWidgetState extends State<TimelineBarWidget> {
   Widget build(BuildContext context) {
     TimelineBarModel model = Provider.of<TimelineBarModel>(context);
 
-    return Positioned(
-      left: model.currentPos + 30,
+    return Selector<TimelineBarModel, int>(
+      builder: (context, value, child) {
+        return Positioned(
+          left: model.currentPos + 30,
+          child: child!,
+        );
+      },
+      selector: (ctx, timelineBarModel) => timelineBarModel.currentPos,
       child: SizedBox(
         height: widget.height,
         width: 40,

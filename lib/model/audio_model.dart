@@ -12,22 +12,22 @@ class AudioModel with ChangeNotifier {
       _audioSources[i + 40] = notesAudioResource[i];
     }
   }
+
+
   Future<void> play(int index) async {
     if (!_audioSources.containsKey(index)) {
       return;
     }
-    // if (_audioPlayers.containsKey(index) &&
-    //     _audioPlayers[index]!.status == PlayerStatus.playing) {
-    //   return;
-    // }
+
     if (_audioPlayers.containsKey(index) &&
         _audioPlayers[index]!.state == PlayerState.playing) {
+      _audioPlayers[index]!.seek(const Duration(seconds: 0));
       return;
     }
-    // final PlayerController player = Player.asset(plist[index]);
     final AudioPlayer player = AudioPlayer();
-    // player.setSourceAsset(plist[index]);
-    player.play(AssetSource(plist[index]));
+
+    player.play(DeviceFileSource(plist[index]));
+
     player.onPlayerStateChanged.listen((state) {
       if (state == PlayerState.completed) {
         _audioPlayers.removeWhere((key, value) => key == index);
@@ -35,12 +35,7 @@ class AudioModel with ChangeNotifier {
       }
     });
     _audioPlayers[index] = player;
-    // player.streams.status.listen((event) {
-    //   if (event == PlayerStatus.ended) {
-    //     _audioPlayers.remove(index);
-    //     notifyListeners();
-    //   }
-    // });
+
     notifyListeners();
   }
 
@@ -48,7 +43,6 @@ class AudioModel with ChangeNotifier {
     if (!_audioPlayers.containsKey(index)) {
       return;
     }
-    // final PlayerController player = _audioPlayers[index]!;
     final AudioPlayer player = _audioPlayers[index]!;
     await player.stop();
     _audioPlayers.removeWhere((key, value) => key == index);
