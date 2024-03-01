@@ -30,9 +30,10 @@ class MyApp extends StatelessWidget {
             },
             initialData: AudioModel()),
         ChangeNotifierProxyProvider<AudioModel, TimelineBarModel>(
-          create: (_) => TimelineBarModel(AudioModel().play),
+          create: (_) =>
+              TimelineBarModel(AudioModel().play, AudioModel().stopAll),
           update: (context, value, previous) =>
-              TimelineBarModel(AudioModel().play),
+              TimelineBarModel(AudioModel().play, AudioModel().stopAll),
         )
         // ChangeNotifierProxyProvider<AppModel,Track>(create: (_)=>AppModel(), update: update)
       ],

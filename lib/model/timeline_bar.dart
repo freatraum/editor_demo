@@ -12,8 +12,9 @@ class TimelineBarModel with ChangeNotifier {
     notifyListeners();
   }
 
-  TimelineBarModel(this._playNote);
+  TimelineBarModel(this._playNote, this._stopAll);
   final Future<void> Function(int index) _playNote;
+  final Future<void> Function() _stopAll;
   List<Map<double, int>> _playList = [];
   bool _playing = false;
   bool get playing => _playing;
@@ -38,6 +39,8 @@ class TimelineBarModel with ChangeNotifier {
   }
 
   stop() {
+    _stopAll();
+
     _timer?.cancel();
     _currentPos = 0;
     _playing = false;
