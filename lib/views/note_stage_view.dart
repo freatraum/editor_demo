@@ -49,7 +49,7 @@ class _NoteStageViewState extends State<NoteStageView> {
         children: [
           Consumer<AppModel>(builder: (context, appModel, child) {
             var clip = appModel
-                .findTrackById(appModel.selectedTrackIndex)
+                .findTrackById(appModel.selectedTrackId)
                 .findClipById(appModel.selectedClipId) as SingingClip;
             return SizedBox(
               height: 20,
@@ -108,7 +108,7 @@ class _NoteStageViewState extends State<NoteStageView> {
                             Consumer<AppModel>(
                               builder: (context, value, child) {
                                 SingingClip singingClip = value
-                                        .findTrackById(value.selectedTrackIndex)
+                                        .findTrackById(value.selectedTrackId)
                                         .findClipById(value.selectedClipId)
                                     as SingingClip;
                                 return GestureDetector(
@@ -144,7 +144,7 @@ class _NoteStageViewState extends State<NoteStageView> {
                             Consumer<AppModel>(
                               builder: (context, value, child) {
                                 var clip = value
-                                    .findTrackById(value.selectedTrackIndex)
+                                    .findTrackById(value.selectedTrackId)
                                     .findClipById(value.selectedClipId);
                                 return SizedBox(
                                   height: MidiModel.keys().length * 25,

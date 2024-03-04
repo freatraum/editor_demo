@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/audio_model.dart';
 import 'package:provider_demo/model/clip.dart';
+import 'package:provider_demo/model/clip_list.dart';
 import 'package:provider_demo/model/drag_action_model.dart';
 import 'package:provider_demo/model/timeline_bar.dart';
 import 'package:provider_demo/model/track.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
-        ChangeNotifierProvider<Clip>(create: (_) => Clip()),
+        ChangeNotifierProvider<ClipList>(create: (_) => ClipList()),
         ChangeNotifierProvider<DragActionModel>(
           create: (_) => DragActionModel(),
         ),

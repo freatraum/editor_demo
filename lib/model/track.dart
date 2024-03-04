@@ -43,8 +43,8 @@ class Track with ChangeNotifier, UniqueObject {
     _clips.add(clip);
   }
 
-  Clip findClipById(int id) {
-    return _clips.findById(id);
+  T findClipById<T>(int id) {
+    return _clips.findById(id) as T;
   }
 
   fromTrack(Track other) {

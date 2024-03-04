@@ -39,7 +39,7 @@ class _ClipViewState extends State<ClipView> {
         appModel.setSelectedClipId(widget.clip.id);
         for (var element in appModel.tracks) {
           if (element.clips.contains(widget.clip)) {
-            appModel.setSelectedTrackIndex(element.id);
+            appModel.setSelectedTrackId(element.id);
           }
         }
       },

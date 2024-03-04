@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_demo/model/clip.dart';
 import 'package:provider_demo/model/track.dart';
 
 class AppModel with ChangeNotifier {
@@ -19,10 +20,10 @@ class AppModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _selectedTrackIndex = -1;
-  get selectedTrackIndex => _selectedTrackIndex;
-  setSelectedTrackIndex(int index) {
-    _selectedTrackIndex = index;
+  int _selectedTrackId = -1;
+  get selectedTrackId => _selectedTrackId;
+  setSelectedTrackId(int index) {
+    _selectedTrackId = index;
     notifyListeners();
   }
 
@@ -40,6 +41,11 @@ class AppModel with ChangeNotifier {
   get selectedClipId => _selectedClipId;
   setSelectedClipId(int id) {
     _selectedClipId = id;
+    notifyListeners();
+  }
+
+  updateClip(SingingClip clip) {
+    findTrackById(_selectedTrackId).findClipById<SingingClip>(clip.id);
     notifyListeners();
   }
 
@@ -86,7 +92,7 @@ class AppModel with ChangeNotifier {
   reset() {
     _tempo = 120;
     _tracks = [];
-    _selectedTrackIndex = -1;
+    _selectedTrackId = -1;
     _selectedClipId = -1;
     notifyListeners();
   }

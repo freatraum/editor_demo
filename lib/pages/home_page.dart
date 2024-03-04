@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                               top: BorderSide(color: Colors.black, width: 2))),
                       child: Consumer<AppModel>(
                         builder: (context, appModel, child) {
-                          return (appModel.selectedTrackIndex != -1 &&
+                          return (appModel.selectedTrackId != -1 &&
                                   appModel.selectedClipId != -1)
                               ? NoteStageView(
                                   height: constraints.maxHeight,

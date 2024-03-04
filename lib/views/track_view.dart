@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
 import 'package:provider_demo/model/clip.dart';
+import 'package:provider_demo/model/clip_list.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/views/clip_view.dart';
 
@@ -21,7 +22,7 @@ class _TrackViewState extends State<TrackView> {
       decoration: BoxDecoration(
         color: Colors.black45,
         border: Border.all(
-            color: appModel.selectedTrackIndex == widget.track.id
+            color: appModel.selectedTrackId == widget.track.id
                 ? Colors.red
                 : Colors.lightBlue),
       ),
@@ -44,7 +45,8 @@ class _TrackViewState extends State<TrackView> {
             children: [
               GestureDetector(
                 onPanUpdate: (details) {
-                  var clip = widget.track.findClipById(appModel.selectedClipId);
+                  var clip = widget.track
+                      .findClipById<SingingClip>(appModel.selectedClipId);
                   var deltaX = details.localPosition.dx - clip.start;
                   if (deltaX > 120) {
                     clip.setLength(deltaX);
@@ -52,15 +54,17 @@ class _TrackViewState extends State<TrackView> {
                   }
                 },
                 onPanDown: (details) {
+                  ClipList list = Provider.of<ClipList>(context);
                   SingingClip singingClip = SingingClip();
                   appModel
-                    ..setSelectedTrackIndex(widget.track.id)
+                    ..setSelectedTrackId(widget.track.id)
                     ..setSelectedClipId(singingClip.id);
                   singingClip.setStart(details.localPosition.dx);
                   singingClip.setClipStart(details.localPosition.dx);
                   singingClip.setName("New Clip");
                   singingClip.setLength(120);
                   widget.track.insertClip(singingClip);
+                  list.insertClip(singingClip);
                 },
                 child: Container(
                   color: Colors.grey,
