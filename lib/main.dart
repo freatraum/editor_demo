@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<Track>(create: (_) => Track()),
-        ChangeNotifierProvider<ClipList>(create: (_) => ClipList()),
         ChangeNotifierProvider<DragActionModel>(
           create: (_) => DragActionModel(),
         ),

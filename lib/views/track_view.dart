@@ -47,14 +47,17 @@ class _TrackViewState extends State<TrackView> {
                 onPanUpdate: (details) {
                   var clip = widget.track
                       .findClipById<SingingClip>(appModel.selectedClipId);
+                  // var clip1 =
+                  //     clipListModel.findClipById(appModel.selectedClipId);
                   var deltaX = details.localPosition.dx - clip.start;
                   if (deltaX > 120) {
                     clip.setLength(deltaX);
-                    setState(() {});
+                    appModel.updateClip(clip);
+                    // clipListModel.updateClip(clip1);
+                    // setState(() {});
                   }
                 },
                 onPanDown: (details) {
-                  ClipList list = Provider.of<ClipList>(context);
                   SingingClip singingClip = SingingClip();
                   appModel
                     ..setSelectedTrackId(widget.track.id)
@@ -64,7 +67,7 @@ class _TrackViewState extends State<TrackView> {
                   singingClip.setName("New Clip");
                   singingClip.setLength(120);
                   widget.track.insertClip(singingClip);
-                  list.insertClip(singingClip);
+                  // clipListModel.insertClip(singingClip);
                 },
                 child: Container(
                   color: Colors.grey,
@@ -79,7 +82,8 @@ class _TrackViewState extends State<TrackView> {
                           clip: e,
                           dragFn: (start) {
                             e.setStart(start);
-                            setState(() {});
+                            // setState(() {});
+                            appModel.updateClip(e);
                           },
                           selected: appModel.selectedClipId == e.id,
                         )))

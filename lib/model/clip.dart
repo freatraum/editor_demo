@@ -33,6 +33,7 @@ class Clip with ChangeNotifier, BaseItem {
     notifyListeners();
   }
 
+//https://github.com/freatraum/editor_demo
   int _gain = 0;
   get gain => _gain;
   setGain(int gain) {
@@ -69,6 +70,12 @@ class SingingClip extends Clip {
   List<Note> get notes => _notes;
   insertNote(Note note) {
     _notes.add(note);
+    notifyListeners();
+  }
+
+  updateNote(Note note) {
+    int index = _notes.indexOf(note);
+    _notes[index] = note;
     notifyListeners();
   }
 

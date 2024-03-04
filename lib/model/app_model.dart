@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_demo/model/clip.dart';
+import 'package:provider_demo/model/note.dart';
 import 'package:provider_demo/model/track.dart';
 
 class AppModel with ChangeNotifier {
@@ -44,13 +45,28 @@ class AppModel with ChangeNotifier {
     notifyListeners();
   }
 
-  updateClip(SingingClip clip) {
-    findTrackById(_selectedTrackId).findClipById<SingingClip>(clip.id);
+  updateClip(Clip clip) {
+    var track = findTrackById(_selectedTrackId);
+    track.updateClip(clip);
+    updateTrack(track);
+    notifyListeners();
+  }
+
+  updateNote(Note note) {
+    var track = findTrackById(_selectedTrackId);
+    var clip = track.findClipById<SingingClip>(_selectedClipId);
+    clip.updateNote(note);
     notifyListeners();
   }
 
   insertTrack(Track track, int index) {
     _tracks.insert(index, track);
+    notifyListeners();
+  }
+
+  updateTrack(Track track) {
+    int index = _tracks.indexOf(track);
+    _tracks[index] = track;
     notifyListeners();
   }
 

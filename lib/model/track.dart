@@ -34,6 +34,12 @@ class Track with ChangeNotifier, UniqueObject {
     notifyListeners();
   }
 
+  updateClip(Clip clip) {
+    int index = _clips.list.indexOf(clip);
+    _clips.list[index] = clip;
+    notifyListeners();
+  }
+
   insertClipAt(Clip clip, int index) {
     _clips.insert(clip, index);
     notifyListeners();

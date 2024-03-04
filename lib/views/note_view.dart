@@ -27,7 +27,8 @@ class _NoteViewState extends State<NoteView> {
             onHorizontalDragUpdate: (details) {
               var delta = details.localPosition.dx - dragActionModel.dragStartX;
               widget.note.setStart(widget.note.noteStart + delta);
-              setState(() {});
+              appModel.updateNote(widget.note);
+              // setState(() {});
             },
             onHorizontalDragStart: (details) {
               dragActionModel.setDragStart(details.localPosition.dx);
@@ -43,7 +44,8 @@ class _NoteViewState extends State<NoteView> {
                           .floor() *
                       25 +
                   4);
-              setState(() {});
+              appModel.updateNote(widget.note);
+              // setState(() {});
             },
             onVerticalDragStart: (details) {},
             child: child,

@@ -124,7 +124,8 @@ class _NoteStageViewState extends State<NoteStageView> {
                                                 25 +
                                             4);
                                     singingClip.insertNote(note);
-                                    setState(() {});
+                                    value.updateNote(note);
+                                    // setState(() {});
                                   },
                                   child: child,
                                 );

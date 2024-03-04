@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/model/app_model.dart';
+import 'package:provider_demo/model/clip_list.dart';
 import 'package:provider_demo/model/track.dart';
 import 'package:provider_demo/widgets/menu_item.dart';
 
