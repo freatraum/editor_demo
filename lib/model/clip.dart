@@ -33,7 +33,6 @@ class Clip with ChangeNotifier, BaseItem {
     notifyListeners();
   }
 
-//https://github.com/freatraum/editor_demo
   int _gain = 0;
   get gain => _gain;
   setGain(int gain) {

@@ -29,7 +29,6 @@ class MenuWidget extends StatelessWidget {
               click: () {
                 Track track = Track();
                 track.setName("New Track");
-
                 appModel.addTrack(track);
               },
             );
